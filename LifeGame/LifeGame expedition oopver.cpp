@@ -67,7 +67,12 @@ class LifeMatrix {
 					if (i+1<40 && j+1<40 && typeid(*cells[i+1][j+1]) == typeid(liveCell)) liveCount++;
 					if (j+1<40 && typeid(*cells[i][j+1]) == typeid(liveCell)) liveCount++;
 					if (i-1>-1 && j+1<40 && typeid(*cells[i-1][j+1]) == typeid(liveCell)) liveCount++;
-					if ( (liveCount == 3 && typeid(*cells[i][j]) == typeid(deadCell)) || (liveCount != 2 && liveCount != 3 && typeid(*cells[i][j]) == typeid(liveCell)) ) {
+					// expedition 
+					if (j+2<40 && typeid(*cells[i][j+2]) == typeid(liveCell)) liveCount++;
+					if (i+2<40 && typeid(*cells[i+2][j]) == typeid(liveCell)) liveCount++;
+					if (j-2>-1 && typeid(*cells[i][j-2]) == typeid(liveCell)) liveCount++;
+					if (i-2>-1 && typeid(*cells[i-2][j]) == typeid(liveCell)) liveCount++;
+					if ( (liveCount > 4 && liveCount < 7 && typeid(*cells[i][j]) == typeid(deadCell)) || ( (liveCount < 3 || liveCount > 8 ) && typeid(*cells[i][j]) == typeid(liveCell)) ) {
 						// stateMark == 1 means the cell waits for change
 						stateMark[i][j] = 1;
 					} else {
